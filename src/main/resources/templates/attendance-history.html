@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance History</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+
+<div class="register-wrapper">
+
+    <div class="left-panel">
+        <h1>History</h1>
+        <p>Attendance history</p>
+    </div>
+
+    <div class="right-panel">
+        <h2>Attendance History</h2>
+
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Class ID</th>
+                    <th>Class Type</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="attendanceTable"></tbody>
+        </table>
+
+        <p><a href="/dashboard">⬅ Back to Dashboard</a></p>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Session expired");
+        window.location.href = "/";
+        return;
+    }
+
+    const userId = 1; // TEMP (later extract from JWT)
+
+    fetch(`/attendance/history?userId=${userId}`, {
+        headers: { "Authorization": "Bearer " + token }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const tbody = document.getElementById("attendanceTable");
+        tbody.innerHTML = "";
+        data.forEach(a => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${a.id}</td>
+                    <td>${a.userId}</td>
+                    <td>${a.classId}</td>
+                    <td>${a.classType}</td>
+                    <td>${a.status}</td>
+                    <td>${a.attendanceDate}</td>
+                </tr>`;
+        });
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mark Attendance</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+
+<div class="register-wrapper">
+    <div class="left-panel">
+        <h1>Attendance</h1>
+        <p>Mark attendance for online or offline classes</p>
+    </div>
+
+    <div class="right-panel">
+        <h2>Mark Attendance</h2>
+
+        <input type="number" id="userId" placeholder="User ID" required />
+        <input type="number" id="classId" placeholder="Class ID" required />
+
+        <select id="classType" required>
+            <option value="">Select Class Type</option>
+            <option value="ONLINE">ONLINE</option>
+            <option value="OFFLINE">OFFLINE</option>
+        </select>
+
+        <select id="status" required>
+            <option value="">Select Status</option>
+            <option value="PRESENT">PRESENT</option>
+            <option value="ABSENT">ABSENT</option>
+        </select>
+
+        <!-- ✅ DATE -->
+        <input type="date" id="attendanceDate" required />
+
+        <button onclick="markAttendance()">Submit</button>
+
+        <p><a href="/dashboard">⬅ Back to Dashboard</a></p>
+    </div>
+</div>
+
+<script>
+document.getElementById("attendanceDate").value =
+    new Date().toISOString().split("T")[0];
+
+function markAttendance() {
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Session expired. Please login again.");
+        window.location.href = "/";
+        return;
+    }
+
+    const data = {
+        userId: document.getElementById("userId").value,
+        classId: document.getElementById("classId").value,
+        classType: document.getElementById("classType").value,
+        status: document.getElementById("status").value,
+        attendanceDate: document.getElementById("attendanceDate").value
+    };
+
+    fetch("/attendance/mark", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Failed");
+        return res.json();
+    })
+    .then(() => alert("Attendance marked successfully"))
+    .catch(() => alert("Error marking attendance"));
+}
+</script>
+
+</body>
+</html>

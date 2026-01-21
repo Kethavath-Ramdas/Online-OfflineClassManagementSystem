@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: #f5f7fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main card */
+.register-wrapper {
+    width: 900px;
+    height: 520px;
+    display: flex;
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Left section (image / gradient) */
+.left-panel {
+    width: 45%;
+    background: linear-gradient(135deg, #5f2c82, #49a09d);
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.left-panel h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.left-panel p {
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Right section (form) */
+.right-panel {
+    width: 55%;
+    padding: 50px 45px;
+}
+
+.right-panel h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Input fields */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #5f2c82;
+}
+
+/* Button */
+.register-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #5f2c82, #49a09d);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.register-btn:hover {
+    opacity: 0.9;
+}
+
+/* Footer link */
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #5f2c82;
+    font-weight: bold;
+    text-decoration: none;
+}

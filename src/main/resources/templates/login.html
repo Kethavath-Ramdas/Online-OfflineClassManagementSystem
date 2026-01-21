@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login | ClassConnect</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+
+<div class="register-wrapper">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+        <h1>Welcome Back</h1>
+        <p>
+            Login to ClassConnect and manage your
+            online and offline classes with ease.
+        </p>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+        <h2>Login</h2>
+
+        <div class="form-group">
+            <input type="text" id="username" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+            <input type="password" id="password" placeholder="Password">
+        </div>
+
+        <button class="register-btn" onclick="login()">Login</button>
+
+        <div class="login-link">
+            Don’t have an account?
+            <a th:href="@{/register}">Register</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function login() {
+    fetch("/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
+        })
+    })
+    .then(res => res.json())
+    .then(result => {
+
+        if (result.statusCode !== 200) {
+            alert(result.message);
+            return;
+        }
+
+        // 🔥 ONLY THIS
+        localStorage.setItem("token", result.data);
+
+        alert("Login successful");
+        window.location.href = "/dashboard";
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Login failed");
+    });
+}
+</script>
+
+
+
+</body>
+</html>

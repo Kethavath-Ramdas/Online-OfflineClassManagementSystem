@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register | ClassConnect</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+
+<div class="register-wrapper">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+        <h1>ClassConnect</h1>
+        <p>NEXT EDUCATION
+            Join ClassConnect to manage your online and offline classes,
+            track attendance, and simplify learning.
+        </p>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+        <h2>Create Account</h2>
+
+        <div class="form-group">
+            <input type="text" id="username" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+            <input type="password" id="password" placeholder="Password">
+        </div>
+
+        <button class="register-btn" onclick="register()">Register</button>
+
+        <div class="login-link">
+            Already have an account?
+            <a th:href="@{/}">Login</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function register() {
+
+    const data = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+    };
+
+    fetch("/auth/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(response => {
+
+        // ✅ SUCCESS
+        if (response.statusCode === 201) {
+            alert("Registration successful");
+        } 
+        // ❌ FAILURE
+        else {
+            alert("Registration failed");
+        }
+
+    })
+    .catch(() => {
+        alert("Registration failed");
+    });
+}
+</script>
+
+
+</body>
+</html>
