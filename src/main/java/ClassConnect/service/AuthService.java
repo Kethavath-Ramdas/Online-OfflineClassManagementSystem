@@ -23,7 +23,7 @@ public class AuthService {
 	    @Autowired
 	    private ResponseStructure<User> responseStructure;
 	    
-//Register
+
 	    public ResponseEntity<ResponseStructure<User>> register(
 	            RegistrationRequest request) {
 	        if (userRepository.existsByUsername(request.getUsername())) {
@@ -39,7 +39,7 @@ public class AuthService {
 	        responseStructure.setData(savedUser);
 	        return new ResponseEntity<>(responseStructure, HttpStatus.CREATED);
 	    }
-	    // LOGIN 
+	
 	    public ResponseEntity<ResponseStructure<String>> loginSuccess(String token) {
 	        ResponseStructure<String> responseStructure = new ResponseStructure<>();
 	        responseStructure.setStatusCode(HttpStatus.OK.value());

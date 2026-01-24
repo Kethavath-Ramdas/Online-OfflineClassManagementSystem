@@ -33,7 +33,6 @@ public class ClassController {
         response.setMessage("Class created successfully");
         response.setData(saved);
 
-        return ResponseEntity.ok().body(response);
-//        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

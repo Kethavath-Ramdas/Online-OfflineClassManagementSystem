@@ -13,7 +13,7 @@ body {
     align-items: center;
 }
 
-/* Main card */
+/* Main full page */
 .register-wrapper {
     width: 900px;
     height: 520px;
@@ -24,7 +24,6 @@ body {
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
-/* Left section (image / gradient) */
 .left-panel {
     width: 45%;
     background: linear-gradient(135deg, #5f2c82, #49a09d);
@@ -46,7 +45,7 @@ body {
     opacity: 0.9;
 }
 
-/* Right section (form) */
+
 .right-panel {
     width: 55%;
     padding: 50px 45px;
@@ -76,7 +75,7 @@ body {
     border-color: #5f2c82;
 }
 
-/* Button */
+
 .register-btn {
     width: 100%;
     padding: 12px;

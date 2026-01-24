@@ -35,6 +35,7 @@ public class AttendanceRequest {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	 
 	public String getClassType() {
 		return classType;
 	}

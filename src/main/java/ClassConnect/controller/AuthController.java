@@ -26,15 +26,12 @@ public class AuthController {
 
     @Autowired
     private JwtUtils jwtUtil;
-
-    //REGISTER
     @PostMapping("/register")
     public ResponseEntity<ResponseStructure<User>> register(
             @RequestBody RegistrationRequest request) {
 
         return authService.register(request);
     }
-    //Login
     @PostMapping("/login")
     public ResponseEntity<ResponseStructure<String>> login(
             @RequestBody LoginRequest request) {

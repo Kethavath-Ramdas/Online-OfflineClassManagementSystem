@@ -13,7 +13,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-//JwtFilter is used to check every request and validate the JWT token before allowing access to secured APIs.
+
 	@Component
 	public class JWTFilter extends OncePerRequestFilter {
 
@@ -24,17 +24,15 @@ import jakarta.servlet.http.HttpServletResponse;
 	    private UsersDetailsService userDetailsService;
 
 	    @Override
-	    //This method runs for every request
 	    protected void doFilterInternal(HttpServletRequest request,
 	                                    HttpServletResponse response,
 	                                    FilterChain filterChain)
 	            throws ServletException, IOException {
 //read authentication  barer token<>
 	        String authHeader = request.getHeader("Authorization");
-	        //We’ll extract these from the header
 	        String token = null;
 	        String username = null;
-//check jwttoken exist or not
+
 	        if (authHeader != null && authHeader.startsWith("Bearer ")) {
 	            token = authHeader.substring(7);
 	            username = jwtUtil.extractUsername(token);
@@ -44,12 +42,10 @@ import jakarta.servlet.http.HttpServletResponse;
 	        		&&
 	                SecurityContextHolder.getContext().getAuthentication() == null) //user not authenticated
 	        	{
-//load the user detail from Data base like username and password and role
 	            UserDetails userDetails =
 	                    userDetailsService.loadUserByUsername(username);
-//vadidate token
+
 	            if (jwtUtil.validateToken(token, userDetails)) {
-//create the authentication object
 	                UsernamePasswordAuthenticationToken authentication =
 	                        new UsernamePasswordAuthenticationToken(
 	                                userDetails,
@@ -61,7 +57,7 @@ import jakarta.servlet.http.HttpServletResponse;
 	                        new WebAuthenticationDetailsSource()
 	                                .buildDetails(request)
 	                );
-//set authentication in spring context
+
 	                SecurityContextHolder.getContext()
 	                        .setAuthentication(authentication);
 	            }

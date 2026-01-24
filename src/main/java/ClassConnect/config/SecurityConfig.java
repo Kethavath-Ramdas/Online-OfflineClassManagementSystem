@@ -21,14 +21,10 @@ public class SecurityConfig {
 
     @Autowired
     private JWTFilter jwtFilter;
-
-    // Password Encoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    // Authentication Manager  It verifies username & password during login
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration) throws Exception {
@@ -48,7 +44,7 @@ public class SecurityConfig {
             )
 
             .authorizeHttpRequests(auth -> auth
-            		//It all all pages in frontend Without this → browser UI will break get 403 
+            		//It all all pages in frontend Without this browser UI will break get 403 
             		   .requestMatchers(
             			        "/",
             			        "/login",
@@ -61,7 +57,6 @@ public class SecurityConfig {
             			        "/js/**",
             			        "/images/**"
             			    ).permitAll()
-
             			    //  Protect APIs ONLY valid jwt token
             		.requestMatchers("/attendance/**","/class/**").authenticated()
             		.requestMatchers("/attendance/**").authenticated()
@@ -72,7 +67,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
 
-            //  Disable form login (JWT only) Not using Spring’s default login page
+            //  Disable spring default login page
             .formLogin(form -> form.disable());
 
         // run  JWT Filter before check spring authentication

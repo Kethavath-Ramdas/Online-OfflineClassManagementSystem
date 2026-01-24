@@ -21,8 +21,6 @@ public class AttendanceController {
 
     @Autowired
     private AttendanceService attendanceService;
-
-    // MARK ATTENDANCE
     @PostMapping("/mark")
     public ResponseEntity<ResponseStructure<Attendance>> mark(
             @RequestBody AttendanceRequest request) {
@@ -37,14 +35,12 @@ public class AttendanceController {
         Attendance saved = attendanceService.markAttendance(attendance);
 
         ResponseStructure<Attendance> response = new ResponseStructure<>();
-        response.setStatusCode(HttpStatus.CREATED.value());
+        //response.setStatusCode(HttpStatus.CREATED.value());
         response.setMessage("Attendance marked successfully");
         response.setData(saved);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
-    // GET HISTORY
     @GetMapping("/history")
     public ResponseEntity<ResponseStructure<List<Attendance>>> getHistory(
             @RequestParam int userId) {
@@ -52,14 +48,12 @@ public class AttendanceController {
         List<Attendance> list = attendanceService.getHistory(userId);
 
         ResponseStructure<List<Attendance>> response = new ResponseStructure<>();
-        response.setStatusCode(HttpStatus.OK.value());
+      response.setStatusCode(HttpStatus.OK.value());
         response.setMessage("Attendance fetched successfully");
         response.setData(list);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-    // GET HISTORY BETWEEN DATES
     @GetMapping("/history/range")
     public ResponseEntity<ResponseStructure<List<Attendance>>> getHistoryBetweenDates(
             @RequestParam int userId,
@@ -73,11 +67,11 @@ public class AttendanceController {
         List<Attendance> list =
         attendanceService.getHistoryBetweenDates(userId, start, end);
         ResponseStructure<List<Attendance>> response = new ResponseStructure<>();
-        response.setStatusCode(HttpStatus.OK.value());
+     response.setStatusCode(HttpStatus.OK.value());
         response.setMessage("Attendance fetched successfully");
         response.setData(list);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
 

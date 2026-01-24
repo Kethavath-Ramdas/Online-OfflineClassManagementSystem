@@ -14,13 +14,10 @@ public class AttendanceService {
 
     @Autowired
     private AttendanceRepository attendanceRepository;
-
-    // MARK ATTENDANCE
     public Attendance markAttendance(Attendance attendance) {
         return attendanceRepository.save(attendance);
     }
 
-    // GET HISTORY BY USER
     public List<Attendance> getHistory(int userId) {
 
         List<Attendance> list = attendanceRepository.findByuserId(userId);
@@ -30,11 +27,8 @@ public class AttendanceService {
                     "No attendance found for userId : " + userId
             );
         }
-
         return list;
     }
-
-    // GET HISTORY BETWEEN DATES
     public List<Attendance> getHistoryBetweenDates(
             int userId, LocalDate start, LocalDate end) {
 

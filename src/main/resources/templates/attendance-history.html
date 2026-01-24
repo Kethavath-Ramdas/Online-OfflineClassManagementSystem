@@ -5,17 +5,13 @@
     <link rel="stylesheet" href="/css/register.css">
 </head>
 <body>
-
 <div class="register-wrapper">
-
     <div class="left-panel">
         <h1>History</h1>
         <p>Attendance history</p>
     </div>
-
     <div class="right-panel">
         <h2>Attendance History</h2>
-
         <table border="1" width="100%">
             <thead>
                 <tr>
@@ -29,41 +25,62 @@
             </thead>
             <tbody id="attendanceTable"></tbody>
         </table>
-
         <p><a href="/dashboard">⬅ Back to Dashboard</a></p>
     </div>
 </div>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
     const token = localStorage.getItem("token");
+    console.log("TOKEN:", token);
     if (!token) {
         alert("Session expired");
         window.location.href = "/";
         return;
     }
-
-    const userId = 1; // TEMP (later extract from JWT)
-
+    const userId = 1;
     fetch(`/attendance/history?userId=${userId}`, {
-        headers: { "Authorization": "Bearer " + token }
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Accept": "application/json"
+        }
     })
-    .then(res => res.json())
-    .then(data => {
+    .then(response => {
+        console.log("HTTP STATUS:", response.status);
+
+        if (!response.ok) {
+            throw new Error("HTTP error " + response.status);
+        }
+
+        return response.json();   
+    })
+    .then(response => {
+        console.log("FULL RESPONSE:", response);
+        console.log("DATA ARRAY:", response.data);
+
+        if (!response.data || response.data.length === 0) {
+            alert("No attendance records found");
+            return;
+        }
         const tbody = document.getElementById("attendanceTable");
         tbody.innerHTML = "";
-        data.forEach(a => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${a.id}</td>
-                    <td>${a.userId}</td>
-                    <td>${a.classId}</td>
-                    <td>${a.classType}</td>
-                    <td>${a.status}</td>
-                    <td>${a.attendanceDate}</td>
-                </tr>`;
+        response.data.forEach(a => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${a.id}</td>
+                <td>${a.userId}</td>
+                <td>${a.classId}</td>
+                <td>${a.classType}</td>
+                <td>${a.status}</td>
+                <td>${a.attendanceDate}</td>
+            `;
+
+            tbody.appendChild(row);
         });
+    })
+    .catch(err => {
+        console.error("FETCH ERROR:", err);
+        alert("Failed to load attendance history");
     });
 });
 </script>

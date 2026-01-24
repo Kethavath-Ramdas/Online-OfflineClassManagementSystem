@@ -9,20 +9,18 @@
 <div class="register-wrapper">
     <div class="left-panel">
         <h1>ClassConnect</h1>
-        <p>Manage classes and attendance</p>
+        <p>Manage classes and Mark attendance 
+			Attandance histroy
+		</p>
     </div>
-
     <div class="right-panel">
         <h2>Dashboard</h2>
-
         <p><a href="/class/create-page">Create Class</a></p>
         <p><a href="/attendance"> Attendance MARK</a></p>
         <p><a href="/attendance/history-page">Attendance History</a></p>
-
         <button class="register-btn" onclick="logout()">Logout</button>
     </div>
 </div>
-
 <script>
 function logout() {
     localStorage.removeItem("token");

@@ -14,14 +14,12 @@ package ClassConnect.config;
 	public class JwtUtils {
 
 	    // step 1 SECRET KEY used for token Tamparing  secrete key mixed with the
-		//token so others not modify  username or password when they are try  then invalid token
 	    private static final String SECRET_KEY =
 	            "my_jwt_secret_key_for_classconnect_123456";
 
 	    // step 2 Time setting for expairation upto 10hs only after it will be expire  formate  millsec and sec and min
 	    private static final long JWT_EXPIRATION_TIME =
-	            10000 * 60 * 60;
-
+	            10000 * 60 * 60;  
 	    private Key getSigningKey() {
 	        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 	    }

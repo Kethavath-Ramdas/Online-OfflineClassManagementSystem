@@ -57,18 +57,18 @@ function register() {
     .then(res => res.json())
     .then(response => {
 
-        // ✅ SUCCESS
+      
         if (response.statusCode === 201) {
             alert("Registration successful");
         } 
-        // ❌ FAILURE
+       
         else {
-            alert("Registration failed");
+            alert("Registration failed UserDetails alreadyExists");
         }
 
     })
     .catch(() => {
-        alert("Registration failed");
+        alert("Registration failed UserDetails alreadyExists");
     });
 }
 </script>

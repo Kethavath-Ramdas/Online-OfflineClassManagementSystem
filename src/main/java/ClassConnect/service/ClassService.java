@@ -14,7 +14,7 @@ public class ClassService {
 
     public ClassSession createClass(ClassSession session) {
 
-        //  BASIC VALIDATION
+
         if (session.getClassType() == null || session.getClassType().isEmpty()) {
             throw new ClassCreationException("Class type is required");
         }
